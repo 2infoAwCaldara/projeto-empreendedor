@@ -1,36 +1,60 @@
 package com.be.senai.infoa.backend.projeto_empreendedor.models;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
-@Entity  
-@Table(name ="produto")
+@Entity 
+@Table(name = "produto")
 public class Produto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String nome;
-    private String datadefabricacao;
-    private double preco;
     
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+
+    @Column(name = "nome")
+    private String nome;
+
+    @Column(name = "preco")
+    private Double preco;
+
+    @Column(name = "data_fabricacao")
+    private LocalDate dataFabricacao;
+
+    @ManyToMany 
+    @JoinTable(
+        name = "produto_empreendedor",
+        joinColumns = @JoinColumn(name = "produto_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "empreendedor_id", referencedColumnName = "id")
+    )
+    private List<Empreendedor> empreendedores;
+
     public Produto() {
     }
 
-    public Produto(String nome, String datadefabricacao, double preco) {
+    public Produto(Integer id, String nome, Double preco, LocalDate dataFabricacao, List<Empreendedor> empreendedores) {
+        this.id = id;
         this.nome = nome;
-        this.datadefabricacao = datadefabricacao;
         this.preco = preco;
+        this.dataFabricacao = dataFabricacao;
+        this.empreendedores = empreendedores;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -42,21 +66,28 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getDatadefabricacao() {
-        return datadefabricacao;
-    }
-
-    public void setDatadefabricacao(String datadefabricacao) {
-        this.datadefabricacao = datadefabricacao;
-    }
-
-    public double getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 
-    
+    public LocalDate getDataFabricacao() {
+        return dataFabricacao;
+    }
+
+    public void setDataFabricacao(LocalDate dataFabricacao) {
+        this.dataFabricacao = dataFabricacao;
+    }
+
+    public List<Empreendedor> getEmpreendedores() {
+        return empreendedores;
+    }
+
+    public void setEmpreendedores(List<Empreendedor> empreendedores) {
+        this.empreendedores = empreendedores;
+    }
+
 }

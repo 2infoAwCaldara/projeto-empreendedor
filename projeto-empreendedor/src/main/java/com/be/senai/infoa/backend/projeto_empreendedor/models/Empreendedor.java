@@ -1,37 +1,47 @@
 package com.be.senai.infoa.backend.projeto_empreendedor.models;
 
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
-@Entity
+@Entity 
 @Table(name = "empreendedor")
 public class Empreendedor {
-    @Id
+    
+    @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private Integer id;
 
+    @Column(name = "nome")
     private String nome;
+
+    @Column(name = "cpf")
     private String cpf;
-    private String datadeNascimento;
+
+    @Column(name = "data_nascimento")
+    private LocalDate dataNascimento;
 
     public Empreendedor() {
     }
 
-    public Empreendedor(String nome, String cpf, String datadeNascimento) {
+    public Empreendedor(Integer id, String nome, String cpf, LocalDate dataNascimento) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
-        this.datadeNascimento = datadeNascimento;
+        this.dataNascimento = dataNascimento;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -51,16 +61,12 @@ public class Empreendedor {
         this.cpf = cpf;
     }
 
-    public String getDatadeNascimento() {
-        return datadeNascimento;
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
     }
 
-    public void setDatadeNascimento(String datadeNascimento) {
-        this.datadeNascimento = datadeNascimento;
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
-
-    
-
-   
 
 }
